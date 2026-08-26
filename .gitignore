@@ -1,0 +1,8 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+
+# Airflow runtime output
+logs/
+config/*
+!config/.gitkeep
