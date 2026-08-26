@@ -1,4 +1,4 @@
-d[project]
+[project]
 name = "airflow-beginners"
 version = "0.1.0"
 description = "Add your description here"

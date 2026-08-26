@@ -17,7 +17,18 @@ def parallel_tasks_dag():
         ti.xcom_push(key='return_result',value=extracted_data_dict)
 
     @task.python
-    def transform_task(**kwargs):
+    def transform_task_api(**kwargs):
+
+        ti = kwargs['ti']
+
+        api_extracted_data = ti.xcom_pull(task_ids='extract_task',key='return_result')['api_extracted_data']
+        print(f"Transforming the data:{api_extracted_data}")
+
+        transformed_api_data = [i*100 for i in api_extracted_data]
+        ti.xcom_push(key='return_result',value=transformed_api_data)
+
+    @task.python
+    def transform_task_db(**kwargs):
 
         ti = kwargs['ti']
 
@@ -43,19 +54,20 @@ def parallel_tasks_dag():
 
         print("Loading data to destination")
         api_data = kwargs['ti'].xcom_pull(task_ids='extract_task',key='return_result')['api_extracted_data']
-        db_data = kwargs['ti'].xcom_pull(task_ids='transform_task',key='return_result')
+        db_data = kwargs['ti'].xcom_pull(task_ids='transform_task_db',key='return_result')
         s3_data = kwargs['ti'].xcom_pull(task_ids='transform_task_s3',key='return_result')
 
         return f"echo Loaded Data: {api_data} {db_data} {s3_data}"
 
     # Defining the task dependencies
     extract = extract_task()
-    transform_api = transforn_task_api()
+    transform_api = transform_task_api()
+    transform_db = transform_task_db()
     transform_s3 = transform_task_s3()
 
     load = load_task()
 
-    extract >> [transform_api, transform_db,transform_s3] >> load
+    extract >> [transform_api, transform_db, transform_s3] >> load
 
 
 parallel_tasks_dag()
