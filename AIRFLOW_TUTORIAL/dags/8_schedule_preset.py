@@ -1,8 +1,7 @@
 from airflow.sdk import dag,task
 from pendulum import datetime
 
-@dag(dag_id="schedule_preset_dag",start_date=datetime(year=2026,month=8,day=27,tz="UTC"),schedule="@daily",is_paused_upon_creation=False)
-
+@dag(dag_id="schedule_preset_dag",start_date=datetime(year=2026,month=8,day=27,tz="UTC"),schedule="@daily",is_paused_upon_creation=False,catchup=True)
 
 def schedule_preset_dag():
 
@@ -27,3 +26,4 @@ def schedule_preset_dag():
 
 ## Initialize the DAG
 schedule_preset_dag()
+
