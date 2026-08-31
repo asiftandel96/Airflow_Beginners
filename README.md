@@ -8,6 +8,10 @@ A hands-on Apache Airflow learning project covering DAGs, operators, XComs, and 
 - DAG versioning and operators
 - Automatic and manual XCom usage
 - Parallel task execution
+- Branching and conditional logic
+- Scheduling with presets, cron expressions, and deltas
+- Incremental data loading
+- Running tasks on special dates
 
 ## Prerequisites
 
@@ -50,6 +54,12 @@ The examples are in `AIRFLOW_TUTORIAL/dags/` and are mounted into containers as 
 | `4_XCOMS_Auto.py` | `xcoms_dag_auto` | Automatic XComs |
 | `5_XCOM_Manual.py` | `xcoms_dag_kwargs` | Manual XComs |
 | `6_parallel_tasks.py` | `parallel_tasks_dag` | Parallel transforms and loading |
+| `7_branches.py` | `branches_dag` | Branching with conditional task execution |
+| `8_schedule_preset.py` | `schedule_preset_dag` | Scheduling with preset intervals (@daily) |
+| `9_schedule_cron.py` | `schedule_cron_dag` | Scheduling with cron expressions |
+| `10_schedule_delta.py` | `schedule_delta_dag` | Scheduling with delta/timedelta intervals |
+| `11_increment_load.py` | `increment_load_dag` | Incremental data loading with intervals |
+| `12_special_dates.py` | `special_dates_dag` | Running tasks on special event dates |
 
 ## Useful Commands
 
